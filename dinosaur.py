@@ -27,6 +27,17 @@ BIRD = [
 BG = pg.image.load(os.path.join("ex05/Assets/Other", "Track.png"))
 CLOUD = pg.image.load(os.path.join("ex05/Assets/Other", "Cloud.png"))
 
+SMALL_CACTUS = [
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "SmallCactus1.png")),
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "SmallCactus2.png")),
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "SmallCactus3.png")),
+]
+LARGE_CACTUS = [
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "LargeCactus1.png")),
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "LargeCactus2.png")),
+    pg.image.load(os.path.join("ex05/Assets/Cactus", "LargeCactus3.png")),
+]
+
 
 # 障害物判定
 class Obstacle:
@@ -86,20 +97,24 @@ class Cloud:
 サウンドの追加
 
 """
-#bgmの追加
+
+
+# bgmの追加
 def bgm():
-    pg.mixer.init() #初期化
+    pg.mixer.init()  # 初期化
     bgm = pygame.mixer.Sound("ex05/Assets/music/maou_bgm_8bit14.ogg")
     bgm.play()
 
-#効果音の追加
+
+# 効果音の追加
 def sound_jump():
-    pg.mixer.init() #初期化
+    pg.mixer.init()  # 初期化
     bgm_jump = pygame.mixer.Sound("ex05/Assets/music/8bitジャンプ.mp3")
     bgm_jump.play()
 
+
 def sound_duck():
-    pg.mixer.init() #初期化
+    pg.mixer.init()  # 初期化
     bgm_duck = pygame.mixer.Sound("ex05/Assets/music/8bitかわす.mp3")
     bgm_duck.play()
 
@@ -185,10 +200,27 @@ class Obstacle:
         self.rect = self.image[self.type].get_rect()
         self.rect.x = SCREEN_WIDTH
 
+<<<<<<< HEAD
     def update(self):
         self.rect.x -= game_speed
         if self.rect.x < -self.rect.width:
             obstacles.pop()
+=======
+# 障害物：小さなサボテン
+class SmallCactus(Obstacle):
+    def __init__(self, image):
+        self.type = random.randint(0, 2)
+        super().__init__(image, self.type)
+        self.rect.y = 325
+
+
+# 障害物：大きなサボテン
+class LargeCactus(Obstacle):
+    def __init__(self, image):
+        self.type = random.randint(0, 2)
+        super().__init__(image, self.type)
+        self.rect.y = 300
+>>>>>>> 7d29f984e2fabc531f5950ba17a8e7878cd34710
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
@@ -260,8 +292,14 @@ def main():
                 obstacles.append(SmallCactus(SMALL_CACTUS))
             elif random.randint(0, 2) == 1:
                 obstacles.append(LargeCactus(LARGE_CACTUS))
+<<<<<<< HEAD
         
 
+=======
+            # 鳥　呼び出し
+            elif random.randint(0, 2) == 2:
+                obstacles.append(Bird(BIRD))
+>>>>>>> 7d29f984e2fabc531f5950ba17a8e7878cd34710
 
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
